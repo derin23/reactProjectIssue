@@ -1,7 +1,6 @@
-import React, {Component} from 'react';
-import '../css/Board.css';
-import Note from './Note';
-
+import React, { Component } from "react";
+import "../css/Board.css";
+import Note from "./Note";
 
 class Board extends Component {
   constructor() {
@@ -9,69 +8,61 @@ class Board extends Component {
     this.state = {
       notes: [],
       update: []
-    }
+    };
   }
   addNote() {
-    this.state.notes.push(
-      {
-        id: Date.now()
-      }
-    );
-    this.setState(
-      {
-        notes: this.state.notes
-      }
-    );
+    this.state.notes.push({
+      id: Date.now()
+    });
+    this.setState({
+      notes: this.state.notes
+    });
   }
-  deleteNote(id){
+  deleteNote(id) {
     let newNoteArr = this.state.notes;
     newNoteArr.map((note, index) => {
       if (id === note.id) {
-        newNoteArr.splice(index,1);
+        newNoteArr.splice(index, 1);
       }
     });
-    this.setState(
-      {
-        notes: newNoteArr
-      }
-    );
-
-
+    this.setState({
+      notes: newNoteArr
+    });
   }
-  updateBoard(id){
-
-   console.log("hello " + id);
-    
+  updateBoard(id) {
+    console.log("hello " + id);
   }
-  render() { 
-    console.log('this is notes',this.state.notes)
+  render() {
+    console.log("this is notes", this.state.notes);
     return (
       <div className="bg">
         <div className="div-board">
           <div className="row">
-          {
-              this.state.notes.map(note => {
-                return <Note key={note.id} id={note.id} deleteHandler={this.deleteNote.bind(this)} />
-              })
-            }
+            {this.state.notes.map(note => {
+              return (
+                <Note
+                  key={note.id}
+                  id={note.id}
+                  deleteHandler={this.deleteNote.bind(this)}
+                  updateHandler={() => this.updateBoard(5)}
+                />
+              );
+            })}
           </div>
         </div>
-      <div>
-      {
-              this.state.notes.map(note => {
-           return <Note key={note.id} id={note.id} updateHandler={() => this.updateBoard(5)} />
-          })
-        }
-      </div>
         <div>
-          <button className="btn btn-success add-button" onClick={this.addNote.bind(this)}>Add</button>
+          <button
+            className="btn btn-success add-button"
+            onClick={this.addNote.bind(this)}
+          >
+            Add
+          </button>
         </div>
-        
+
         <h1>Updated data: {this.props.bodyElement}</h1>
       </div>
     );
   }
-  
 }
 
 export default Board;
